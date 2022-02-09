@@ -1,14 +1,15 @@
 package com.nice.fantasy_world.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Novel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "novel_id", nullable = false)
-    private int novelId;
+    @Column(name = "idnovel", nullable = false)
+    private int idnovel;
     @Basic
     @Column(name = "title", nullable = false, length = 255)
     private String title;
@@ -25,15 +26,19 @@ public class Novel {
     @Column(name = "sypnosis", nullable = true, length = 2500)
     private String sypnosis;
     @Basic
-    @Column(name = "novel_rate", nullable = true)
-    private Integer novelRate;
+    @Column(name = "novelrate", nullable = true)
+    private Integer novelrate;
+    @OneToMany(mappedBy = "novelByIdnovel")
+    private Collection<Novelnote> novelnotesByIdnovel;
 
-    public int getNovelId() {
-        return novelId;
+
+
+    public int getIdnovel() {
+        return idnovel;
     }
 
-    public void setNovelId(int novelId) {
-        this.novelId = novelId;
+    public void setIdnovel(int idnovel) {
+        this.idnovel = idnovel;
     }
 
     public String getTitle() {
@@ -76,12 +81,12 @@ public class Novel {
         this.sypnosis = sypnosis;
     }
 
-    public Integer getNovelRate() {
-        return novelRate;
+    public Integer getNovelrate() {
+        return novelrate;
     }
 
-    public void setNovelRate(Integer novelRate) {
-        this.novelRate = novelRate;
+    public void setNovelrate(Integer novelrate) {
+        this.novelrate = novelrate;
     }
 
     @Override
@@ -89,11 +94,19 @@ public class Novel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Novel novel = (Novel) o;
-        return novelId == novel.novelId && Objects.equals(title, novel.title) && Objects.equals(author, novel.author) && Objects.equals(chapters, novel.chapters) && Objects.equals(status, novel.status) && Objects.equals(sypnosis, novel.sypnosis) && Objects.equals(novelRate, novel.novelRate);
+        return idnovel == novel.idnovel && Objects.equals(title, novel.title) && Objects.equals(author, novel.author) && Objects.equals(chapters, novel.chapters) && Objects.equals(status, novel.status) && Objects.equals(sypnosis, novel.sypnosis) && Objects.equals(novelrate, novel.novelrate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(novelId, title, author, chapters, status, sypnosis, novelRate);
+        return Objects.hash(idnovel, title, author, chapters, status, sypnosis, novelrate);
     }
+
+//    public Collection<Novelnote> getNovelnotesByIdnovel() {
+//        return novelnotesByIdnovel;
+//    }
+//
+//    public void setNovelnotesByIdnovel(Collection<Novelnote> novelnotesByIdnovel) {
+//        this.novelnotesByIdnovel = novelnotesByIdnovel;
+//    }
 }

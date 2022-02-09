@@ -7,8 +7,8 @@ import java.util.Objects;
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    @Column(name = "iduser", nullable = false)
+    private int iduser;
     @Basic
     @Column(name = "username", nullable = false, length = 255)
     private String username;
@@ -21,13 +21,17 @@ public class User {
     @Basic
     @Column(name = "age", nullable = true)
     private Integer age;
+//    @OneToMany(mappedBy = "userByIduser")
+//    private Collection<Novelnote> novelnotesByIduser;
+//    @OneToMany(mappedBy = "userByIduser")
+//    private Collection<Webtoonnote> webtoonnotesByIduser;
 
-    public int getUserId() {
-        return userId;
+    public int getIduser() {
+        return iduser;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setIduser(int iduser) {
+        this.iduser = iduser;
     }
 
     public String getUsername() {
@@ -67,11 +71,27 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userId == user.userId && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(pwd, user.pwd) && Objects.equals(age, user.age);
+        return iduser == user.iduser && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(pwd, user.pwd) && Objects.equals(age, user.age);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, email, pwd, age);
+        return Objects.hash(iduser, username, email, pwd, age);
     }
+
+//    public Collection<Novelnote> getNovelnotesByIduser() {
+//        return novelnotesByIduser;
+//    }
+//
+//    public void setNovelnotesByIduser(Collection<Novelnote> novelnotesByIduser) {
+//        this.novelnotesByIduser = novelnotesByIduser;
+//    }
+//
+//    public Collection<Webtoonnote> getWebtoonnotesByIduser() {
+//        return webtoonnotesByIduser;
+//    }
+//
+//    public void setWebtoonnotesByIduser(Collection<Webtoonnote> webtoonnotesByIduser) {
+//        this.webtoonnotesByIduser = webtoonnotesByIduser;
+//    }
 }

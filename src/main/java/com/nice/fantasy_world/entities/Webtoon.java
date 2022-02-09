@@ -5,10 +5,10 @@ import java.util.Objects;
 
 @Entity
 public class Webtoon {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
-    @Column(name = "webtoon_id", nullable = false)
-    private int webtoonId;
+    @Column(name = "idwebtoon", nullable = false)
+    private int idwebtoon;
     @Basic
     @Column(name = "title", nullable = false, length = 255)
     private String title;
@@ -25,15 +25,17 @@ public class Webtoon {
     @Column(name = "sypnosis", nullable = true, length = 2500)
     private String sypnosis;
     @Basic
-    @Column(name = "webtoon_rate", nullable = true)
-    private Integer webtoonRate;
+    @Column(name = "webtoonrate", nullable = true)
+    private Integer webtoonrate;
+//    @OneToMany(mappedBy = "webtoonByIdwebtoon")
+//    private Collection<Webtoonnote> webtoonnotesByIdwebtoon;
 
-    public int getWebtoonId() {
-        return webtoonId;
+    public int getIdwebtoon() {
+        return idwebtoon;
     }
 
-    public void setWebtoonId(int webtoonId) {
-        this.webtoonId = webtoonId;
+    public void setIdwebtoon(int idwebtoon) {
+        this.idwebtoon = idwebtoon;
     }
 
     public String getTitle() {
@@ -76,12 +78,12 @@ public class Webtoon {
         this.sypnosis = sypnosis;
     }
 
-    public Integer getWebtoonRate() {
-        return webtoonRate;
+    public Integer getWebtoonrate() {
+        return webtoonrate;
     }
 
-    public void setWebtoonRate(Integer webtoonRate) {
-        this.webtoonRate = webtoonRate;
+    public void setWebtoonrate(Integer webtoonrate) {
+        this.webtoonrate = webtoonrate;
     }
 
     @Override
@@ -89,11 +91,19 @@ public class Webtoon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Webtoon webtoon = (Webtoon) o;
-        return webtoonId == webtoon.webtoonId && Objects.equals(title, webtoon.title) && Objects.equals(author, webtoon.author) && Objects.equals(chapters, webtoon.chapters) && Objects.equals(status, webtoon.status) && Objects.equals(sypnosis, webtoon.sypnosis) && Objects.equals(webtoonRate, webtoon.webtoonRate);
+        return idwebtoon == webtoon.idwebtoon && Objects.equals(title, webtoon.title) && Objects.equals(author, webtoon.author) && Objects.equals(chapters, webtoon.chapters) && Objects.equals(status, webtoon.status) && Objects.equals(sypnosis, webtoon.sypnosis) && Objects.equals(webtoonrate, webtoon.webtoonrate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(webtoonId, title, author, chapters, status, sypnosis, webtoonRate);
+        return Objects.hash(idwebtoon, title, author, chapters, status, sypnosis, webtoonrate);
     }
+
+//    public Collection<Webtoonnote> getWebtoonnotesByIdwebtoon() {
+//        return webtoonnotesByIdwebtoon;
+//    }
+//
+//    public void setWebtoonnotesByIdwebtoon(Collection<Webtoonnote> webtoonnotesByIdwebtoon) {
+//        this.webtoonnotesByIdwebtoon = webtoonnotesByIdwebtoon;
+//    }
 }
