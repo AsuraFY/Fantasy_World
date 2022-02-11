@@ -34,8 +34,8 @@ public class IWebtoonNoteImpl implements  IWebtoonNote{
         if (noteDao.findById(id).isPresent()){
             Webtoonnote note = noteDao.findById(id).get();
             note.setNote(newnote.getNote());
-            note.setIdwebtoon(newnote.getIdwebtoon()); ;
-            note.setIduser(newnote.getIduser());
+            note.setWebtoonId(newnote.getWebtoonId()); ;
+            note.setMember(newnote.getMember());
             return noteDao.save(note);
         }else{
             return null;

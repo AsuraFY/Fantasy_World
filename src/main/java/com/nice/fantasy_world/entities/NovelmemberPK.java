@@ -1,23 +1,25 @@
 package com.nice.fantasy_world.entities;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class NovelnotePK implements Serializable {
+public class NovelmemberPK implements Serializable {
     @Column(name = "member", nullable = false, length = 255, updatable = false , insertable = false)
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String member;
     @Column(name = "novel_id", nullable = false, updatable = false , insertable = false)
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int novelId;
-    public NovelnotePK(){}
-    public NovelnotePK(int novelId, String member) {
-        this.novelId = novelId;
+
+    public NovelmemberPK(String member, int novelId) {
         this.member = member;
+        this.novelId = novelId;
     }
 
     public String getMember() {
@@ -40,7 +42,7 @@ public class NovelnotePK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NovelnotePK that = (NovelnotePK) o;
+        NovelmemberPK that = (NovelmemberPK) o;
         return novelId == that.novelId && Objects.equals(member, that.member);
     }
 

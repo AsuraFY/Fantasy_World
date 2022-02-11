@@ -8,8 +8,8 @@ import java.util.Optional;
 @Service
 public interface IUsers {
     List<User> getAll();
-    Optional<User> getById(int id);
+    Optional<User> getByUsername(String username);
     User addUser(User user);
-    void deleteById(int id);
-    User updateUser( User user, int id);
+    void deleteById(String username);
+    User updateUser( User user, String username);
 }

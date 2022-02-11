@@ -30,6 +30,7 @@ public class INovelsImpl implements INovels{
             novel.setChapters(newnovel.getChapters());
             novel.setStatus(newnovel.getStatus());
             novel.setSypnosis(newnovel.getSypnosis());
+            novel.setImageId(newnovel.getImageId());
             return novelsDao.save(novel);
         }else{
             return null;

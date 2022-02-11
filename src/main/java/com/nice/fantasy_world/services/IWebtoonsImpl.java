@@ -32,6 +32,7 @@ public class IWebtoonsImpl implements IWebtoons{
             webtoon.setChapters(newwebtoon.getChapters());
             webtoon.setStatus(newwebtoon.getStatus());
             webtoon.setSypnosis(newwebtoon.getSypnosis());
+            webtoon.setImageId(newwebtoon.getImageId());
             return webtoonsDao.save(webtoon);
         }else{
             return null;

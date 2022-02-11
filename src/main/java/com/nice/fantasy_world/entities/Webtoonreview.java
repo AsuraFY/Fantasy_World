@@ -4,25 +4,34 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(WebtoonnotePK.class)
-public class Webtoonnote {
+public class Webtoonreview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "review_id", nullable = false)
+    private int reviewId;
+    @Basic
     @Column(name = "member", nullable = false, length = 255, updatable = false , insertable = false)
     private String member;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Basic
     @Column(name = "webtoon_id", nullable = false, updatable = false , insertable = false)
     private int webtoonId;
     @Basic
-    @Column(name = "note", nullable = true)
-    private Integer note;
+    @Column(name = "review", nullable = false, length = 5000)
+    private String review;
     @ManyToOne
-    @JoinColumn(name = "member", referencedColumnName = "username", nullable = false, updatable = false , insertable = false)
+    @JoinColumn(name = "member", referencedColumnName = "username", nullable = false)
     private User userByMember;
     @ManyToOne
-    @JoinColumn(name = "webtoon_id", referencedColumnName = "webtoon_id", nullable = false, updatable = false , insertable = false)
+    @JoinColumn(name = "webtoon_id", referencedColumnName = "webtoon_id", nullable = false)
     private Webtoon webtoonByWebtoonId;
+
+    public int getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
+    }
 
     public String getMember() {
         return member;
@@ -40,25 +49,25 @@ public class Webtoonnote {
         this.webtoonId = webtoonId;
     }
 
-    public Integer getNote() {
-        return note;
+    public String getReview() {
+        return review;
     }
 
-    public void setNote(Integer note) {
-        this.note = note;
+    public void setReview(String review) {
+        this.review = review;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Webtoonnote that = (Webtoonnote) o;
-        return webtoonId == that.webtoonId && Objects.equals(member, that.member) && Objects.equals(note, that.note);
+        Webtoonreview that = (Webtoonreview) o;
+        return reviewId == that.reviewId && webtoonId == that.webtoonId && Objects.equals(member, that.member) && Objects.equals(review, that.review);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(member, webtoonId, note);
+        return Objects.hash(reviewId, member, webtoonId, review);
     }
 
     public User getUserByMember() {

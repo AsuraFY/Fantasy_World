@@ -16,29 +16,29 @@ public class NovelNoteController {
  @Autowired
  INovelNoteImpl iNote;
 
- @GetMapping("/api/novelnotes")
+ @GetMapping("/api/novelmember")
  List<Novelnote> getAll() {
      return iNote.getAll();
  }
 
- @GetMapping("/api/novelnotes/{idnovel}/{iduser}")
- Novelnote getByPk(@PathVariable ("idnovel") int idnovel, @PathVariable("iduser") int iduser){
+ @GetMapping("/api/novelmember/{novelId}/{member}")
+ Novelnote getByPk(@PathVariable ("novelId") int novelId, @PathVariable("member") String member){
 
-         if (iNote.getByPk(new NovelnotePK(idnovel, iduser)).isPresent()){
-         return iNote.getByPk(new NovelnotePK(idnovel, iduser)).get();
+         if (iNote.getByPk(new NovelnotePK(novelId, member)).isPresent()){
+         return iNote.getByPk(new NovelnotePK(novelId, member)).get();
      }else{
          return null;
      }
  }
 
 
- @DeleteMapping(value = "/api/novelnotes/{idnovel}/{iduser}")
+ @DeleteMapping(value = "/api/novelmember/{novelId}/{member}")
     String deletedById(NovelnotePK id){
      iNote.deleteById(id);
      return "deleted" ;
  }
 
- @PostMapping(value="/api/novelnotes" ,consumes ="application/json")
+ @PostMapping(value="/api/novelmember" ,consumes ="application/json")
 
  Novelnote addNote(@RequestBody String jsonNote ) throws JsonProcessingException {
      ObjectMapper om = new ObjectMapper();
@@ -47,9 +47,9 @@ public class NovelNoteController {
      return iNote.addNote(note);
  }
 
- @PutMapping(value="/api/novelnotes/{idnovel}/{iduser}" ,consumes ="application/json")
- Novelnote updateNote(@PathVariable ("idnovel") int idnovel, @PathVariable("iduser") int iduser, @RequestBody String jsonNote) throws JsonProcessingException{
-     NovelnotePK id =  new NovelnotePK(idnovel, iduser);
+ @PutMapping(value="/api/novelmember/{novelId}/{userId}" ,consumes ="application/json")
+ Novelnote updateNote(@PathVariable ("novelId") int novelId, @PathVariable("userId") String member, @RequestBody String jsonNote) throws JsonProcessingException{
+     NovelnotePK id =  new NovelnotePK(novelId, member);
      ObjectMapper om = new ObjectMapper();
      Novelnote notejson = om.readValue(jsonNote, Novelnote.class);
         return iNote.updateNote(notejson, id);

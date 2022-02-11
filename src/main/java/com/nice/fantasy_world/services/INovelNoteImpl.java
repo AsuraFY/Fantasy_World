@@ -37,8 +37,8 @@ public class INovelNoteImpl implements INovelNote {
         if (noteDao.findById(id).isPresent()){
             Novelnote note = noteDao.findById(id).get();
             note.setNote(newnote.getNote());
-            note.setIdnovel(newnote.getIdnovel());
-            note.setIduser(newnote.getIduser()); ;
+            note.setNovelId(newnote.getNovelId());
+            note.setMember(newnote.getMember()); ;
             return noteDao.save(note);
         }else{
             return null;

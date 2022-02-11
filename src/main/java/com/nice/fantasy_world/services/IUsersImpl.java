@@ -16,20 +16,20 @@ public class IUsersImpl implements IUsers{
     @Override
     public List<User> getAll() {return (List<User>) usersDao.findAll() ; }
     @Override
-    public Optional<User> getById(int id ) {return usersDao.findById(id);}
+    public Optional<User> getByUsername(String username ) {return usersDao.findById(username);}
     @Override
     public User addUser(User user){return usersDao.save(user) ;}
     @Override
-    public void deleteById(int id) { usersDao.deleteById(id); }
+    public void deleteById(String username) { usersDao.deleteById(username); }
     @Override
-    public User updateUser(User newuser, int id) {
-        if (usersDao.findById(id).isPresent()) {
-            User user= usersDao.findById(id).get();
+    public User updateUser(User newuser, String username) {
+        if (usersDao.findById(username).isPresent()) {
+            User user= usersDao.findById(username).get();
 
             user.setUsername(newuser.getUsername());
             user.setEmail(newuser.getEmail());
             user.setPwd(newuser.getPwd());
-            user.setAge(newuser.getAge());
+            user.setImageUrl(newuser.getImageUrl());
             return usersDao.save(user);
         }else{
             return null;

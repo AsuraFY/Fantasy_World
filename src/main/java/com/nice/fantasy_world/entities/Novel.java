@@ -8,37 +8,51 @@ import java.util.Objects;
 public class Novel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "idnovel", nullable = false)
-    private int idnovel;
+    @Column(name = "novel_id", nullable = false)
+    private int novelId;
     @Basic
     @Column(name = "title", nullable = false, length = 255)
     private String title;
     @Basic
-    @Column(name = "author", nullable = false, length = 255)
+    @Column(name = "author", nullable = true, length = 255)
     private String author;
     @Basic
     @Column(name = "chapters", nullable = true)
     private Integer chapters;
     @Basic
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "status", nullable = true, length = 20)
     private String status;
     @Basic
     @Column(name = "sypnosis", nullable = true, length = 2500)
     private String sypnosis;
     @Basic
-    @Column(name = "novelrate", nullable = true)
-    private Integer novelrate;
-    @OneToMany(mappedBy = "novelByIdnovel")
-    private Collection<Novelnote> novelnotesByIdnovel;
+    @Column(name = "rate", nullable = true)
+    private Integer rate;
+    @Basic
+    @Column(name = "posted_by", nullable = true, length = 255, updatable = false , insertable = false)
+    private String postedBy;
+    @Basic
+    @Column(name = "image_id", nullable = true, updatable = false , insertable = false)
+    private Integer imageId;
+    @ManyToOne
+    @JoinColumn(name = "posted_by", referencedColumnName = "username")
+    private User userByPostedBy;
+    @ManyToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    private Image imageByImageId;
+    @OneToMany(mappedBy = "novelByNovelId")
+    private Collection<Novelmember> novelmembersByNovelId;
+    @OneToMany(mappedBy = "novelByNovelId")
+    private Collection<Novelnote> novelnotesByNovelId;
+    @OneToMany(mappedBy = "novelByNovelId")
+    private Collection<Novelreview> novelreviewsByNovelId;
 
-
-
-    public int getIdnovel() {
-        return idnovel;
+    public int getNovelId() {
+        return novelId;
     }
 
-    public void setIdnovel(int idnovel) {
-        this.idnovel = idnovel;
+    public void setNovelId(int novelId) {
+        this.novelId = novelId;
     }
 
     public String getTitle() {
@@ -81,12 +95,28 @@ public class Novel {
         this.sypnosis = sypnosis;
     }
 
-    public Integer getNovelrate() {
-        return novelrate;
+    public Integer getRate() {
+        return rate;
     }
 
-    public void setNovelrate(Integer novelrate) {
-        this.novelrate = novelrate;
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
+    public String getPostedBy() {
+        return postedBy;
+    }
+
+    public void setPostedBy(String postedBy) {
+        this.postedBy = postedBy;
+    }
+
+    public Integer getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Integer imageId) {
+        this.imageId = imageId;
     }
 
     @Override
@@ -94,19 +124,51 @@ public class Novel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Novel novel = (Novel) o;
-        return idnovel == novel.idnovel && Objects.equals(title, novel.title) && Objects.equals(author, novel.author) && Objects.equals(chapters, novel.chapters) && Objects.equals(status, novel.status) && Objects.equals(sypnosis, novel.sypnosis) && Objects.equals(novelrate, novel.novelrate);
+        return novelId == novel.novelId && Objects.equals(title, novel.title) && Objects.equals(author, novel.author) && Objects.equals(chapters, novel.chapters) && Objects.equals(status, novel.status) && Objects.equals(sypnosis, novel.sypnosis) && Objects.equals(rate, novel.rate) && Objects.equals(postedBy, novel.postedBy) && Objects.equals(imageId, novel.imageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idnovel, title, author, chapters, status, sypnosis, novelrate);
+        return Objects.hash(novelId, title, author, chapters, status, sypnosis, rate, postedBy, imageId);
     }
 
-//    public Collection<Novelnote> getNovelnotesByIdnovel() {
-//        return novelnotesByIdnovel;
-//    }
-//
-//    public void setNovelnotesByIdnovel(Collection<Novelnote> novelnotesByIdnovel) {
-//        this.novelnotesByIdnovel = novelnotesByIdnovel;
-//    }
+    public User getUserByPostedBy() {
+        return userByPostedBy;
+    }
+
+    public void setUserByPostedBy(User userByPostedBy) {
+        this.userByPostedBy = userByPostedBy;
+    }
+
+    public Image getImageByImageId() {
+        return imageByImageId;
+    }
+
+    public void setImageByImageId(Image imageByImageId) {
+        this.imageByImageId = imageByImageId;
+    }
+
+    public Collection<Novelmember> getNovelmembersByNovelId() {
+        return novelmembersByNovelId;
+    }
+
+    public void setNovelmembersByNovelId(Collection<Novelmember> novelmembersByNovelId) {
+        this.novelmembersByNovelId = novelmembersByNovelId;
+    }
+
+    public Collection<Novelnote> getNovelnotesByNovelId() {
+        return novelnotesByNovelId;
+    }
+
+    public void setNovelnotesByNovelId(Collection<Novelnote> novelnotesByNovelId) {
+        this.novelnotesByNovelId = novelnotesByNovelId;
+    }
+
+    public Collection<Novelreview> getNovelreviewsByNovelId() {
+        return novelreviewsByNovelId;
+    }
+
+    public void setNovelreviewsByNovelId(Collection<Novelreview> novelreviewsByNovelId) {
+        this.novelreviewsByNovelId = novelreviewsByNovelId;
+    }
 }

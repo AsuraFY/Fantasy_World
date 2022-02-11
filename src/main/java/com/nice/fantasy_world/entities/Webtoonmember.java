@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(WebtoonnotePK.class)
-public class Webtoonnote {
+@IdClass(WebtoonmemberPK.class)
+public class Webtoonmember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "member", nullable = false, length = 255, updatable = false , insertable = false)
@@ -14,14 +14,11 @@ public class Webtoonnote {
     @Id
     @Column(name = "webtoon_id", nullable = false, updatable = false , insertable = false)
     private int webtoonId;
-    @Basic
-    @Column(name = "note", nullable = true)
-    private Integer note;
     @ManyToOne
-    @JoinColumn(name = "member", referencedColumnName = "username", nullable = false, updatable = false , insertable = false)
+    @JoinColumn(name = "member", referencedColumnName = "username", nullable = false)
     private User userByMember;
     @ManyToOne
-    @JoinColumn(name = "webtoon_id", referencedColumnName = "webtoon_id", nullable = false, updatable = false , insertable = false)
+    @JoinColumn(name = "webtoon_id", referencedColumnName = "webtoon_id", nullable = false)
     private Webtoon webtoonByWebtoonId;
 
     public String getMember() {
@@ -40,25 +37,17 @@ public class Webtoonnote {
         this.webtoonId = webtoonId;
     }
 
-    public Integer getNote() {
-        return note;
-    }
-
-    public void setNote(Integer note) {
-        this.note = note;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Webtoonnote that = (Webtoonnote) o;
-        return webtoonId == that.webtoonId && Objects.equals(member, that.member) && Objects.equals(note, that.note);
+        Webtoonmember that = (Webtoonmember) o;
+        return webtoonId == that.webtoonId && Objects.equals(member, that.member);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(member, webtoonId, note);
+        return Objects.hash(member, webtoonId);
     }
 
     public User getUserByMember() {

@@ -21,20 +21,19 @@ public class WebtoonNoteController {
         return iNote.getAll();
     }
 
-    @GetMapping("/api/webtoonnotes/{idwebtoon}/{iduser}")
-    Webtoonnote getByPk(@PathVariable("idwebtoon") int idwebtoon, @PathVariable("iduser") int iduser){
+    @GetMapping("/api/webtoonnotes/{webtoonId}/{member}")
+    Webtoonnote getByPk(@PathVariable("webtoonId") int webtoonId, @PathVariable("member") String member){
 
-        if (iNote.getByPk(new WebtoonnotePK(idwebtoon, iduser)).isPresent()){
-            return iNote.getByPk(new WebtoonnotePK(idwebtoon, iduser)).get();
+        if (iNote.getByPk(new WebtoonnotePK(webtoonId, member)).isPresent()){
+            return iNote.getByPk(new WebtoonnotePK(webtoonId, member)).get();
         }else{
             return null;
         }
     }
 
 
-    @DeleteMapping(value = "/api/webtoonnotes/{idwebtoon}/{iduser}")
+    @DeleteMapping(value = "/api/webtoonnotes/{webtoonId}/{member}")
     String deletedById(WebtoonnotePK id){
-        // NovelnotePK id = new NovelnotePK(idnovel, iduser);
         iNote.deleteById(id);
         return "deleted" ;
     }
@@ -48,9 +47,9 @@ public class WebtoonNoteController {
         return iNote.addNote(note);
     }
 
-    @PutMapping(value="/api/webtoonnotes/{idwebtoon}/{iduser}" ,consumes ="application/json")
-    Webtoonnote updateNote(@PathVariable ("idwebtoon") int idwebtoon, @PathVariable("iduser") int iduser, @RequestBody String jsonNote) throws JsonProcessingException{
-        WebtoonnotePK id =  new WebtoonnotePK(idwebtoon, iduser);
+    @PutMapping(value="/api/webtoonnotes/{webtoonId}/{member}" ,consumes ="application/json")
+    Webtoonnote updateNote(@PathVariable ("webtoonId") int webtoonId, @PathVariable("member") String member, @RequestBody String jsonNote) throws JsonProcessingException{
+        WebtoonnotePK id =  new WebtoonnotePK(webtoonId, member);
         ObjectMapper om = new ObjectMapper();
         Webtoonnote notejson = om.readValue(jsonNote, Webtoonnote.class);
         return iNote.updateNote(notejson, id);

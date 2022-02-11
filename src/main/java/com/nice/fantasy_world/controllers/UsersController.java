@@ -18,19 +18,19 @@ IUsersImpl iUsers;
     @GetMapping("/api/users")
     List<User> getAll() {return iUsers.getAll(); }
 
-    @GetMapping("/api/users/{id}")
-    User getById(@PathVariable("id") int id){
-        if (iUsers.getById(id).isPresent()){
-            return iUsers.getById(id).get();
+    @GetMapping("/api/users/{username}")
+    User getById(@PathVariable("username") String username){
+        if (iUsers.getByUsername(username).isPresent()){
+            return iUsers.getByUsername(username).get();
         }else{
             return null;
         }
     }
 
-    @DeleteMapping("/api/users/{id}")
+    @DeleteMapping("/api/users/{username}")
 
-    String deleteById(@PathVariable("id") int id){
-        iUsers.deleteById(id);
+    String deleteById(@PathVariable("username") String username){
+        iUsers.deleteById(username);
         return "deleted";
     }
 
@@ -44,11 +44,11 @@ IUsersImpl iUsers;
         return iUsers.addUser(user);
     }
 
-    @PutMapping("/api/users/{id}")
-    User updateUser(@PathVariable("id" ) int id, @RequestBody String jsonUser) throws JsonProcessingException {
+    @PutMapping("/api/users/{username}")
+    User updateUser(@PathVariable("username" ) String username, @RequestBody String jsonUser) throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
         User userjson = om.readValue(jsonUser, User.class);
-        return iUsers.updateUser(userjson, id);
+        return iUsers.updateUser(userjson, username);
 
 
 
